@@ -34,39 +34,35 @@
    let type;
    let description;
    let userPosition;
- 
-let contentString;
    let date;
+   let contentString;
+ 
   
    var button = document.querySelector("button");
    button.addEventListener("click", function (event) {
        type = document.getElementById("Select-Section").value;
        description = document.getElementById('POST-name').value;
-      sendData(type, userPosition, description);
-       let time = new Date();
-       console.log(today);
+       sendData(type, userPosition, description);
+       let dateAndTime = calculateDate();
+       console.log(dateAndTime);
        console.log(type);
        console.log(userPosition);
        console.log(description);
-       
-    
-
 });
-   /*
-   var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth()+1; //January is 0!
-var yyyy = today.getFullYear();
 
-if(dd<10) {
-    dd = '0'+dd
-} 
-
-if(mm<10) {
-    mm = '0'+mm
-} 
-
-today = mm + '/' + dd + '/' + yyyy;*/
+        function calculateDate(){
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+            var hh = today.getHours();
+            var min = today.getMinutes();
+            
+            if(dd<10) {dd = '0'+dd } 
+            if(mm<10) {mm = '0'+mm } 
+            today ="Date: "+ mm + '/' + dd + '/' + yyyy+" Time:" + hh + ":" +min;
+            return today;
+        }
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
 //          center: {lat: -34.397, lng: 150.644},
@@ -147,21 +143,20 @@ today = mm + '/' + dd + '/' + yyyy;*/
   };
   firebase.initializeApp(config);
     
-    function sendData(type, position, description)
-{
+    function sendData(type, position, description) {
    // Reference to your entire Firebase database
-   var myFirebase = firebase.database().ref();
-    // Get a reference to the recommendations object of your Firebase.
-   // Note: this doesn't exist yet. But when we write to our Firebase using
-   // this reference, it will create this object for us!
-   var _marker = myFirebase.child("Marker");
+      var myFirebase = firebase.database().ref();
+        // Get a reference to the recommendations object of your Firebase.
+       // Note: this doesn't exist yet. But when we write to our Firebase using
+       // this reference, it will create this object for us!
+      var _marker = myFirebase.child("Marker");
   
    // Push our first recommendation to the end of the list and assign it a
    // unique ID automatically.
-   _marker.push({
-       "type": type,
-       "position": position,
-       "description": description
+       _marker.push({
+           "type": type,
+           "position": position,
+           "description": description
    });
 }
 
