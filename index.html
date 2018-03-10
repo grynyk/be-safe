@@ -8,7 +8,7 @@
  
   </head>
   <body>
-      <h1 id="bigOne">BeSafe App</h1>
+      <h1 id="bigOne">BesaSafe App</h1>
       <!-- Simple form which will send a POST request -->
 <form action="" method="post">
   <label for="POST-name">Type:</label>
@@ -45,8 +45,7 @@
        console.log(description);
 
 });
- 
-     
+    
     
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -54,6 +53,8 @@
           zoom: 12
         });
         var infoWindow = new google.maps.InfoWindow({map: map});
+        
+
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -63,11 +64,17 @@
               lng: position.coords.longitude
             };
               userPosition = pos;
+             
 
-//            infoWindow.setPosition(pos);
-//            infoWindow.setContent('Location found.');
+
             map.setCenter(pos);
-//            console.log(pos);
+            
+            var marker = new google.maps.Marker({
+                position : pos,
+                map : map,
+                
+            });
+ 
 
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
@@ -76,7 +83,8 @@
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
         }
-          
+           
+         
       }
  
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
