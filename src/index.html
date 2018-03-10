@@ -39,7 +39,7 @@
    button.addEventListener("click", function (event) {
        type = document.getElementById("Select-Section").value;
        description = document.getElementById('POST-name').value;
-      sendData(type, userPosition);
+      sendData(type, userPosition, description);
        console.log(type);
        console.log(userPosition);
        console.log(description);
@@ -104,7 +104,7 @@
   };
   firebase.initializeApp(config);
     
-    function sendData(type, position)
+    function sendData(type, position, description)
 {
    // Reference to your entire Firebase database
    var myFirebase = firebase.database().ref();
@@ -117,7 +117,8 @@
    // unique ID automatically.
    _marker.push({
        "type": type,
-       "position": position
+       "position": position,
+       "description": description
    });
 }
 
