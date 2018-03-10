@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+ 
+  </head>
+  <body>
+      <h1 id="bigOne">BeSafe App</h1>
+      <!-- Simple form which will send a POST request -->
+<form action="" method="post">
+  <label for="POST-name">Type:</label>
+<select id="Select-Section">
+  <option class="select"> 1</option>
+  <option class="select"> 2</option>
+  <option class="select"> 3</option>
+  <option class="select"> 4</option>
+</select>
+  <label for="POST-name">Description:</label>
+  <input id="POST-name" type="text" >
+
+ 
+
+</form>
+      <button id="counter">Click me!</button>
+    <div id="map"></div>
+    <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+   let type;
+   let description;
+   let userPosition;
+  
+   var button = document.querySelector("button");
+   button.addEventListener("click", function (event) {
+       type = document.getElementById("Select-Section").value;
+       description = document.getElementById('POST-name').value;
+      sendData(type, userPosition);
+       console.log(type);
+       console.log(userPosition);
+       console.log(description);
+
+});
+ 
+     
+    
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+//          center: {lat: -34.397, lng: 150.644},
+          zoom: 12
+        });
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+             pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+              userPosition = pos;
+
+//            infoWindow.setPosition(pos);
+//            infoWindow.setContent('Location found.');
+            map.setCenter(pos);
+//            console.log(pos);
+
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+          
+      }
+ 
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+        
+ 
+        
+    </script>
+      
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDf0HHMffQxBycIAA2O-V1QaCD0qZmbVk8",
+    authDomain: "besafe-2018.firebaseapp.com",
+    databaseURL: "https://besafe-2018.firebaseio.com",
+    projectId: "besafe-2018",
+    storageBucket: "",
+    messagingSenderId: "827771907476"
+  };
+  firebase.initializeApp(config);
+    
+    function sendData(type, position)
+{
+   // Reference to your entire Firebase database
+   var myFirebase = firebase.database().ref();
+    // Get a reference to the recommendations object of your Firebase.
+   // Note: this doesn't exist yet. But when we write to our Firebase using
+   // this reference, it will create this object for us!
+   var _marker = myFirebase.child("Marker");
+  
+   // Push our first recommendation to the end of the list and assign it a
+   // unique ID automatically.
+   _marker.push({
+       "type": type,
+       "position": position
+   });
+}
+
+</script>
+
+      
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJBRLlLUFRR39Os-bkWvpPKL8WZkjMhEQ&callback=initMap">
+    </script>
+  </body>
+</html>
