@@ -20,7 +20,7 @@
 </select>
   <label for="POST-name">Description:</label>
   <input id="POST-name" type="text" >
-
+  
  
 
 </form>
@@ -34,19 +34,39 @@
    let type;
    let description;
    let userPosition;
+ 
+let contentString;
+   let date;
   
    var button = document.querySelector("button");
    button.addEventListener("click", function (event) {
        type = document.getElementById("Select-Section").value;
        description = document.getElementById('POST-name').value;
       sendData(type, userPosition, description);
+       let time = new Date();
+       console.log(today);
        console.log(type);
        console.log(userPosition);
        console.log(description);
+       
+    
 
 });
-    
-    
+   /*
+   var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+
+if(dd<10) {
+    dd = '0'+dd
+} 
+
+if(mm<10) {
+    mm = '0'+mm
+} 
+
+today = mm + '/' + dd + '/' + yyyy;*/
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
 //          center: {lat: -34.397, lng: 150.644},
@@ -54,7 +74,7 @@
         });
         var infoWindow = new google.maps.InfoWindow({map: map});
         
-
+         
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -66,14 +86,29 @@
               userPosition = pos;
              
 
-
             map.setCenter(pos);
-            
+           
             var marker = new google.maps.Marker({
                 position : pos,
                 map : map,
+                title: '(Ayers Rock)',
+                anchorPoint: new google.maps.Point(0, -2),
+                draggable: true
                 
             });
+              google.maps.event.addListener(marker, 'dragend', function() {
+              userPosition = {lat : marker.getPosition().lat(), lng : marker.getPosition().lng()};
+            })
+               var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+
+
  
 
           }, function() {
