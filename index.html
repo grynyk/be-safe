@@ -42,8 +42,9 @@
    button.addEventListener("click", function (event) {
        type = document.getElementById("Select-Section").value;
        description = document.getElementById('POST-name').value;
-       sendData(type, userPosition, description);
        let dateAndTime = calculateDate();
+       sendData(type, userPosition, dateAndTime, description);
+       
        console.log(dateAndTime);
        console.log(type);
        console.log(userPosition);
@@ -60,19 +61,16 @@
             
             if(dd<10) {dd = '0'+dd } 
             if(mm<10) {mm = '0'+mm } 
-            today ="Date: "+ mm + '/' + dd + '/' + yyyy+" Time:" + hh + ":" +min;
+            today ="Date: "+ mm + '/' + dd + '/' + yyyy+" Time:" + hh + ":" + min;
             return today;
         }
       function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-//          center: {lat: -34.397, lng: 150.644},
-          zoom: 12
-        });
+        var map = new google.maps.Map(document.getElementById('map'), {zoom: 12 });
         var infoWindow = new google.maps.InfoWindow({map: map});
         
          
 
-        // Try HTML5 geolocation.
+       
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
              pos = {
@@ -143,7 +141,7 @@
   };
   firebase.initializeApp(config);
     
-    function sendData(type, position, description) {
+    function sendData(type, position, dateAndTime, description) {
    // Reference to your entire Firebase database
       var myFirebase = firebase.database().ref();
         // Get a reference to the recommendations object of your Firebase.
@@ -156,7 +154,8 @@
        _marker.push({
            "type": type,
            "position": position,
-           "description": description
+           "description": description,
+           "dateAndTime": dateAndTime
    });
 }
 
