@@ -58,6 +58,8 @@ function sendFirebaseData() {
         "description": _description,
         "dateAndTime": _dateAndTime
     });
+    sendToCommandCentralInfo(_type,_description,_dateAndTime);
+
 }
 
 function formMsgSend() {
@@ -101,7 +103,7 @@ function initMap() {
             var _marker = new google.maps.Marker({
                 position: pos,
                 map: _map,
-                title: '(Ayers Rock)',
+                title: 'your location',
                 anchorPoint: new google.maps.Point(0, -2),
                 draggable: true
 
@@ -113,9 +115,6 @@ function initMap() {
                 window.location.href = "#t2";
 
             })
-
-
-
         }, function () {
             handleLocationError(true, infoWindow, _map.getCenter());
         });
@@ -194,4 +193,74 @@ function handleMarkerInsert() {
         }
         )
     }
+}
+
+
+//FOR MOTOROLA SOLUTIONS
+function sendToCommandCentralInfo(type, description, dateAndTime) {
+    const eventBody = {
+        "metaHeader": {
+            // Date, when event really occured
+            "metaTimeStamp": "2018-03-01T15:00:00.000Z",
+            // Label
+            "metaEventTypeLabel": "John"
+        },
+        "eventHeader": {
+            // Unique event ID
+            "id": "officer-john-1",
+            // Descriptive Label
+            "label": "Officer John 1",
+            // Event reported
+            "timeStamp": "2018-03-01T15:00:00.000Z",
+            "location": {
+                // map coordinates - latitude
+                "latitude": 50.051854,
+                // map coordinates - longitude
+                "longitude": 19.941407
+            },
+            // detailed description - visible in map popup
+            "detailedDescription": "Officer John - found a homeless person taking drugs.",
+            "icon": {
+                // icon url - could be custom source, or predefined (format MsiIcon://{name})
+                "url": "MsiIcon://ic_unit_police_sirens"
+            },
+            // timestamp, when event will expire (gone from map and layers panel)
+            "expirationTimeStamp": "2018-03-01T16:00:00.000Z",
+            // available priorities: 'emergency' | 'high' | 'medium' | 'low' | 'diagnostic' | 'unknown'
+            // emergency priority is treated specially (events are marked red)
+            "priority": "high",
+            // an array of attachments
+            "attachments": [
+                {
+                    // Title of Attachment
+                    "name": "Incident Location (external)",
+                    // content type
+                    // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+                    "contentType": "application/link",
+                    // url to source
+                    "url": "https://goo.gl/maps/Yiz4TLDBF3L2"
+                }, {
+                    "name": "Incident image",
+                    "contentType": "image/jpeg",
+                    "url": "https://www.motorolasolutions.com/content/dam/msi/images/en-xw/brand_stories/lte-broadband-lex-brandstory-1160x308.jpg"
+                }
+            ]
+        }
+    };
+ 
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://hacknarok.release.commandcentral.com/",
+        "method": "PUT",
+        "headers": {
+            "Authorization": "Basic QWlkN21zdU5nenU5ZUVq",
+            "Content-Type": "application/json"
+                },
+        "data": eventBody
+    }
+ 
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+    });
 }
