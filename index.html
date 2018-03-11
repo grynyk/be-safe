@@ -1,169 +1,104 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>Geolocation</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="styles/style.css">
- 
-  </head>
-  <body>
-      <h1 id="bigOne">BesaSafe App</h1>
-      <!-- Simple form which will send a POST request -->
-<form action="" method="post">
-  <label for="POST-name">Type:</label>
-<select id="Select-Section">
-  <option class="select"> 1</option>
-  <option class="select"> 2</option>
-  <option class="select"> 3</option>
-  <option class="select"> 4</option>
-</select>
-  <label for="POST-name">Description:</label>
-  <input id="POST-name" type="text" >
+
+<head>
+  <meta charset="utf-8">
+  <title>beSafe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJBRLlLUFRR39Os-bkWvpPKL8WZkjMhEQ&callback=initMap"></script>
+  <script src="Scripts.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+  <div class="ct" id="t1">
+    <div class="ct" id="t2">
+      <div class="ct" id="t3">
+        <div class="ct" id="t4">
+          <section>
+            <ul>
+              <a href="#t1">
+                <li class="icon fa fa-home" id="first"></li>
+              </a>
+              <a href="#t2">
+                <li class="icon fa fa-exclamation-triangle" id="second"></li>
+              </a>
+              <a href="#t3" onclick="showMap()">
+                <li class="icon fa fa-map-marker" id="third"></li>
+              </a>
+              <a href="#t4">
+                <li class="icon fa fa-circle" id="fourth"></li>
+              </a>
+            </ul>
+            <div class="page" id="p1">
+              <li class="icon">
+                <a href="#t1">
+                  <img src="img/logo.png" style="width:300px">
+                </a>
+                <br>
+                <br>
+                <div class="primary-button">
+                  <a href="#t2">Submit accident</a>
+                </div>
+              </li>
+
+            </div>
+            <div class="page" id="p2">
+              <div class="container">
+                <h2>Submit accident form</h2>
+                <br>
+                <form action="" method="post">
+                  <label for="POST-name">Accident type:</label>
+                  <br>
+                  <select id="Select-Section">
+                    <option class="select">Car accident</option>
+                    <option class="select">Lost item</option>
+                    <option class="select">Murder accident</option>
+                    <option class="select">Theft accident</option>
+                  </select>
+                  <br>
+                  <label for="POST-name">Description:</label>
+                  <br>
+                  <input id="POST-name" type="textarea">
+                </form>     
+                <button id="counter" class="counterButton" onclick="sendFirebaseData()">Click me!</button>
+
+              </div>
+            </div>
+            <div class="page" id="p3">
+              <div id="map" style="width: 100%; height: 100%;"></div>
+
+            </div>
+            <div class="page" id="p4">
+
+            </div>
+
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
   
- 
 
-</form>
-      <button id="counter">Click me!</button>
-    <div id="map"></div>
-    <script>
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
-   let type;
-   let description;
-   let userPosition;
-   let date;
-   let contentString;
- 
-  
-   var button = document.querySelector("button");
-   button.addEventListener("click", function (event) {
-       type = document.getElementById("Select-Section").value;
-       description = document.getElementById('POST-name').value;
-       let dateAndTime = calculateDate();
-       sendData(type, userPosition, dateAndTime, description);
-       
-       console.log(dateAndTime);
-       console.log(type);
-       console.log(userPosition);
-       console.log(description);
-});
+  <script>
+    InitFirebase();
+    getFirebaseData();
+    handleMarkerInsert();
 
-        function calculateDate(){
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth()+1; //January is 0!
-            var yyyy = today.getFullYear();
-            var hh = today.getHours();
-            var min = today.getMinutes();
-            
-            if(dd<10) {dd = '0'+dd } 
-            if(mm<10) {mm = '0'+mm } 
-            today ="Date: "+ mm + '/' + dd + '/' + yyyy+" Time: " + hh + ":" + min;
-            return today;
-        }
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {zoom: 12 });
-        var infoWindow = new google.maps.InfoWindow({map: map});
-        
-         
+    function showMap(){
+      getFirebaseData();
+      handleMarkerInsert();
+    }
 
-       
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-             pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-              userPosition = pos;
-             
-
-            map.setCenter(pos);
-           
-            var marker = new google.maps.Marker({
-                position : pos,
-                map : map,
-                title: '(Ayers Rock)',
-                anchorPoint: new google.maps.Point(0, -2),
-                draggable: true
-                
-            });
-              google.maps.event.addListener(marker, 'dragend', function() {
-              userPosition = {lat : marker.getPosition().lat(), lng : marker.getPosition().lng()};
-            })
-               var infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
+  </script>
 
 
-        marker.addListener('click', function() {
-          infowindow.open(map, marker);
-        });
+</body>
 
-
- 
-
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-           
-         
-      }
- 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-      }
-        
- 
-        
-    </script>
-      
-<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDf0HHMffQxBycIAA2O-V1QaCD0qZmbVk8",
-    authDomain: "besafe-2018.firebaseapp.com",
-    databaseURL: "https://besafe-2018.firebaseio.com",
-    projectId: "besafe-2018",
-    storageBucket: "",
-    messagingSenderId: "827771907476"
-  };
-  firebase.initializeApp(config);
-    
-    function sendData(type, position, dateAndTime, description) {
-   // Reference to your entire Firebase database
-      var myFirebase = firebase.database().ref();
-        // Get a reference to the recommendations object of your Firebase.
-       // Note: this doesn't exist yet. But when we write to our Firebase using
-       // this reference, it will create this object for us!
-      var _marker = myFirebase.child("Marker");
-  
-   // Push our first recommendation to the end of the list and assign it a
-   // unique ID automatically.
-       _marker.push({
-           "type": type,
-           "position": position,
-           "description": description,
-           "dateAndTime": dateAndTime
-   });
-}
-
-</script>
-
-      
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJBRLlLUFRR39Os-bkWvpPKL8WZkjMhEQ&callback=initMap">
-    </script>
-  </body>
 </html>
