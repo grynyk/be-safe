@@ -8,14 +8,11 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <!--    andriy scripts -->
-  
-<script src="Scripts.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJBRLlLUFRR39Os-bkWvpPKL8WZkjMhEQ&callback=initMap">
-</script>
-    
 
+  <script src="Scripts.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJBRLlLUFRR39Os-bkWvpPKL8WZkjMhEQ&callback=initMap">
+  </script>
 </head>
 
 <body>
@@ -26,17 +23,22 @@
         <div class="ct" id="t4">
           <section>
             <ul>
-              <a href="#t1"><li class="icon fa fa-home" id="first"></li></a>
+              <a href="#t1">
+                <li class="icon fa fa-home" id="first"></li>
+              </a>
               <hr>
               <a href="#t2">
                 <li class="icon fa fa-exclamation-triangle" id="second"></li>
-              </a> <hr>
-               <a href="#t3" onclick="showMap()">
+              </a>
+              <hr>
+              <a href="#t3" onclick="showMap()">
                 <li class="icon fa fa-map-marker" id="third"></li>
-              </a> <hr>
+              </a>
+              <hr>
               <a href="#t4">
                 <li class="icon fa fa-map" id="fourth"></li>
-              </a> <hr>
+              </a>
+              <hr>
             </ul>
             <div class="page" id="p1">
               <div class="logo">
@@ -53,41 +55,35 @@
             </div>
             <div class="page" id="p2">
               <div class="container">
-                
+
                 <h2 id="msgSent" class="alert alert-success" style="display:none"></h2>
                 <div class="row">
-                    <div class="col-lg-10">
-                        <h2>Submit accident form</h2>
-                        
-                        <br>
-                        <form id="description_form" action="" method="post">
-                            <label for="POST-name">Accident type:</label>
-                            <br>
-                            <select id="Select-Section">
-                              <option class="select">Car accident</option>
-                              <option class="select">Lost item</option>
-                              <option class="select">Murder accident</option>
-                              <option class="select">Theft accident</option>
-                            </select>
-                            <br>
-                            <label for="POST-name">Description:</label>
-                            <br>
-                            
-                            <textarea name="description" class="form-control" id="POST-name" cols="40" rows="5" placeholder="Type description of accident"></textarea> 
-                          </form>
-                          <button id="counter" class="counterButton" onclick="sendFirebaseData();formMsgSend();handleMarkerInsert();">Submit</button>
-                          
-                    </div>
-                    <div class="col-lg-2">
-                        
-  
-                    </div>
-                  
-                  
+                  <div class="col-lg-10">
+                    <h2>Submit accident form</h2>
+
+                    <br>
+                    <form id="description_form" action="" method="post">
+                      <label for="POST-name">Accident type:</label>
+                      <br>
+                      <select id="Select-Section">
+                        <option class="select">Car accident</option>
+                        <option class="select">Lost item</option>
+                        <option class="select">Murder accident</option>
+                        <option class="select">Theft accident</option>
+                      </select>
+                      <br>
+                      <label for="POST-name">Description:</label>
+                      <br>
+
+                      <textarea name="description" class="form-control" id="POST-name" cols="40" rows="5" placeholder="Type description of accident"></textarea>
+                    </form>
+                    <button id="counter" class="counterButton" onclick="sendFirebaseData();formMsgSend();handleMarkerInsert();">Submit</button>
+
+                  </div>
+                  <div class="col-lg-2">
+                  </div>
+
                 </div>
-                
-               
-               
 
               </div>
             </div>
@@ -107,18 +103,18 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
   <script src="js/bootstrap.min.js"></script>
-  
-<script>
+
+  <script>
     InitFirebase();
     getFirebaseData();
     handleMarkerInsert();
 
-    function showMap(){
+    function showMap() {
       getFirebaseData();
       handleMarkerInsert();
     }
 
-</script>
+  </script>
 
 </body>
 

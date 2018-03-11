@@ -60,15 +60,14 @@ function sendFirebaseData() {
     });
 }
 
-
-function formMsgSend(){
+function formMsgSend() {
     var msg = document.getElementById('msgSent');
     msg.innerText = "Your application was sent successfull";
     msg.style = "display:inline-block";
     var frm = document.querySelector('#description_form');
     frm.reset();  // Reset all form data
-    setTimeout(function(){window.location.href = "#t3"; msg.style = "display:none";},900);
-    
+    setTimeout(function () { window.location.href = "#t3"; msg.style = "display:none"; }, 900);
+
     return false; // Prevent page refresh
 }
 function calculateDate() {
@@ -97,8 +96,6 @@ function initMap() {
             };
             UserPosition = pos;
 
-            //            infoWindow.setPosition(pos);
-            //            infoWindow.setContent('Location found.');
             _map.setCenter(pos);
             //            console.log(pos);
             var _marker = new google.maps.Marker({
@@ -111,13 +108,13 @@ function initMap() {
             });
             google.maps.event.addListener(_marker, 'dragend', function () {
                 pos = { lat: _marker.getPosition().lat(), lng: _marker.getPosition().lng() }
-                UserPosition = pos;   
+                UserPosition = pos;
                 handleMarkerInsert();
-                window.location.href = "#t2"; 
-            
+                window.location.href = "#t2";
+
             })
 
-          
+
 
         }, function () {
             handleLocationError(true, infoWindow, _map.getCenter());
@@ -166,10 +163,10 @@ function handleMarkerInsert() {
                 case 'Theft accident':
                     temp_icon = './img/thief.png';
                     break;
-                    
+
                 default:
                     break;
-                   
+
             }
             var _map_marker = new google.maps.Marker({
                 position: marker.position,
