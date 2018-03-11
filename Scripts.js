@@ -119,7 +119,8 @@ function initMap() {
 
             });
             google.maps.event.addListener(_marker, 'dragend', function () {
-                pos = { lat: _marker.getPosition().lat(), lng: _marker.getPosition().lng() };
+                pos = { lat: _marker.getPosition().lat(), lng: _marker.getPosition().lng() }
+                UserPosition = pos;
             })
 
             /*let contentString = `
