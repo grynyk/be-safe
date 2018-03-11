@@ -51,8 +51,9 @@
             <div class="page" id="p2">
               <div class="container">
                 <h2>Submit accident form</h2>
+                <h2 id="msgSent" style="color : rgb(39, 121, 99)"></h2>
                 <br>
-                <form action="" method="post">
+                <form id="description_form" action="" method="post">
                   <label for="POST-name">Accident type:</label>
                   <br>
                   <select id="Select-Section">
@@ -66,7 +67,7 @@
                   <br>
                   <input id="POST-name" type="textarea">
                 </form>     
-                <button id="counter" class="counterButton" onclick="sendFirebaseData()">Click me!</button>
+                <button id="counter" class="counterButton" onclick="sendFirebaseData();formMsgSend()">Click me!</button>
 
               </div>
             </div>

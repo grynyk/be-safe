@@ -79,7 +79,13 @@ function sendFirebaseData() {
         "dateAndTime": _dateAndTime
     });
 }
-
+function formMsgSend(){
+    let msg = document.getElementById('msgSent');
+    msg.innerText = "Your application was sent successfull";
+    var frm = document.querySelector('#description_form');
+    frm.reset();  // Reset all form data
+    return false; // Prevent page refresh
+}
 function calculateDate() {
     var _today = new Date();
     var _dd = _today.getDate();
@@ -121,7 +127,7 @@ function initMap() {
             google.maps.event.addListener(_marker, 'dragend', function () {
                 pos = { lat: _marker.getPosition().lat(), lng: _marker.getPosition().lng() }
                 UserPosition = pos;
-                
+                window.location.href = "http://127.0.0.1:59245/index.html#t2";    
             })
 
           
