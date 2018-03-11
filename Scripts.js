@@ -40,26 +40,6 @@ function getFirebaseData() {  //FIREBASE DATA GETTER
     console.log("getFirebaseData");
 }
 
-function sendFirebaseData() { //FIREBASE DATA SETTER
-    let [_type, _description] = getTypeAndDescription();
-    let _dateAndTime = calculateDate();
-    // Reference to your entire Firebase database
-    let _myFirebase = firebase.database().ref();
-    // Get a reference to the recommendations object of your Firebase.
-    // Note: this doesn't exist yet. But when we write to our Firebase using
-    // this reference, it will create this object for us!
-    let _marker = myFirebase.child("Marker");
-    // Push our first recommendation to the end of the list and assign it a
-    // unique ID automatically.
-    _marker.push({
-        "type": _type,
-        "position": globalUserPosition,
-        "description": _description,
-        "dateAndTime": _dateAndTime
-    });
-    console.log("sendFirebaseData");
-}
-
 function sendFirebaseData() {
     let [_type, _description] = getTypeAndDescription();
     let _dateAndTime = calculateDate();
@@ -79,11 +59,16 @@ function sendFirebaseData() {
         "dateAndTime": _dateAndTime
     });
 }
+
+
 function formMsgSend(){
-    let msg = document.getElementById('msgSent');
+    var msg = document.getElementById('msgSent');
     msg.innerText = "Your application was sent successfull";
+    msg.style = "display:inline-block";
     var frm = document.querySelector('#description_form');
     frm.reset();  // Reset all form data
+    setTimeout(function(){window.location.href = "#t3"; msg.style = "display:none";},900);
+    
     return false; // Prevent page refresh
 }
 function calculateDate() {
@@ -126,8 +111,10 @@ function initMap() {
             });
             google.maps.event.addListener(_marker, 'dragend', function () {
                 pos = { lat: _marker.getPosition().lat(), lng: _marker.getPosition().lng() }
-                UserPosition = pos;
-                window.location.href = "http://127.0.0.1:59245/index.html#t2";    
+                UserPosition = pos;   
+                handleMarkerInsert();
+                window.location.href = "#t2"; 
+            
             })
 
           
@@ -177,12 +164,12 @@ function handleMarkerInsert() {
                     temp_icon = './img/stab-wounds.png';
                     break;
                 case 'Theft accident':
-                    temp_icon = './img/stab-wounds.png';
+                    temp_icon = './img/thief.png';
                     break;
                     
                 default:
                     break;
-                    //dwdwqwd
+                   
             }
             var _map_marker = new google.maps.Marker({
                 position: marker.position,
