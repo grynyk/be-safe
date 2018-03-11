@@ -121,24 +121,10 @@ function initMap() {
             google.maps.event.addListener(_marker, 'dragend', function () {
                 pos = { lat: _marker.getPosition().lat(), lng: _marker.getPosition().lng() }
                 UserPosition = pos;
+                
             })
 
-            /*let contentString = `
-                <h2>Accident type:<b>${Type}</b></h2>
-                <br>
-                <div><p>Description: <br>${Description}</p>
-                <br>
-                <p>${DateAndTime}</p>
-                </div>
-                `;
-
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
-
-            _marker.addListener('click', function () {
-                infowindow.open(_map, _marker);
-            });*/
+          
 
         }, function () {
             handleLocationError(true, infoWindow, _map.getCenter());
@@ -184,9 +170,13 @@ function handleMarkerInsert() {
                 case 'Murder accident':
                     temp_icon = './img/stab-wounds.png';
                     break;
-                
+                case 'Theft accident':
+                    temp_icon = './img/stab-wounds.png';
+                    break;
+                    
                 default:
                     break;
+                    //dwdwqwd
             }
             var _map_marker = new google.maps.Marker({
                 position: marker.position,
