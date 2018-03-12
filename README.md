@@ -1,7 +1,6 @@
-<h3>Multiplatforms responsive web application for tracking and tracking the accidents on the map using Google maps API </h3>
+<h4>Multiplatforms responsive web application for tracking and tracking the accidents on the map using Google maps API </h4>
 <hr>
 <b>Functionality:</b>
-<hr>
 <ul>
   <li>Tracking the accidents(gunshot, murders, car accident, etc)</li>
   <li>Mark yourself as witness of accident(you can leave your contact which is visible only for police & etc)</li>
