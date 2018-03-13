@@ -22,6 +22,8 @@
         <div class="ct" id="t4">
           <section>
             <ul>
+                <a href="#"><img src="img/sos.png" style="max-width:70%;height:auto;padding-top:13%;"></a>
+                <hr>
               <a href="#t1">
                 <li class="icon fa fa-home"></li>
               </a>
@@ -53,14 +55,11 @@
             </div>
             <div class="page" id="p2">
               <div class="container">
-                <div class="row">
-                  <div class="submit-accident-from col-lg-12 ">
-                    <br>
-                    <h2 id="msgSent" class="alert alert-success" style="display:none"></h2>
-                    <h2 style="padding-top:10%" class="icon fa fa-exclamation-triangle"> Submit accident form</h2>
-                    <hr>
+                  <h5 id="msgSent" class="alert alert-success" style="display:none;"></h5>
+                  <h2 style="padding-top:3%" class="icon fa fa-exclamation-triangle"> Submit accident form</h2>
+                  <hr>
                     <form id="description_form" action="" method="post">
-                      <label for="POST-name">Accident type:</label>
+                      <label for="Select-Section">Accident type:</label>
                       <br>
                       <select id="Select-Section">
                         <option class="select">Car accident</option>
@@ -70,8 +69,6 @@
                       </select>
                       <br>
                       <label for="POST-name">Description:</label>
-                      <br>
-
                       <textarea name="description" class="form-control" id="POST-name" cols="40" rows="5" placeholder="Type description of accident"></textarea>
                     </form>
                     <button id="submit-button" onclick="sendFirebaseData();formMsgSend();handleMarkerInsert();">Submit</button>
@@ -79,9 +76,6 @@
                   </div>
 
                 </div>
-
-              </div>
-            </div>
             <div class="page" id="p3">
               <div id="map" style="width: 95%; height: 100%;"></div>
             </div>
