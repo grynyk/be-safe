@@ -65,7 +65,7 @@ function sendFirebaseData() {
 function formMsgSend() {
     var msg = document.getElementById('msgSent');
     msg.innerText = "Your application was sent successfull";
-    msg.style = "display:inline-block";
+    msg.style = "display:inline-block;";
     var frm = document.querySelector('#description_form');
     frm.reset();  // Reset all form data
     setTimeout(function () { window.location.href = "#t3"; msg.style = "display:none"; }, 900);
