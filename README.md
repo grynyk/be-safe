@@ -1,4 +1,4 @@
-<h4>Multiplatforms responsive web application for tracking and marking the accidents on the map using Google maps API </h4>
+<h4>Multiplatform responsive web application for tracking and marking the accidents on the map using Google maps API </h4>
 <hr>
 <b>Functionality:</b>
 <ul>
